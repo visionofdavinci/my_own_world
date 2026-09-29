@@ -155,8 +155,17 @@ async function boot(content, hooks) {
   compScene.add(comp);
   const compCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
+  // the size of the canvas as it is actually shown, which on phones can
+  // differ from window.innerHeight while the address bar moves
+  function viewSize() {
+    const r = canvas.getBoundingClientRect();
+    const w = r.width || window.visualViewport?.width || window.innerWidth;
+    const h = r.height || window.visualViewport?.height || window.innerHeight;
+    return [Math.max(1, Math.round(w)), Math.max(1, Math.round(h))];
+  }
+
   function resize() {
-    const w = Math.max(1, window.innerWidth), h = Math.max(1, window.innerHeight);
+    const [w, h] = viewSize();
     const dpr = Math.min(window.devicePixelRatio || 1, CFG.maxPixelRatio);
     renderer.setPixelRatio(dpr);
     renderer.setSize(w, h, false);
@@ -171,13 +180,17 @@ async function boot(content, hooks) {
     resizePending = true;
     requestAnimationFrame(() => { resizePending = false; resize(); });
   });
-  window.addEventListener('orientationchange', () => setTimeout(resize, 150));
+  window.addEventListener('orientationchange', () => setTimeout(resize, 250));
+  window.visualViewport?.addEventListener('resize', () => requestAnimationFrame(resize));
 
   /* --- input --- */
   let running = false, trans = null, awake = false;
   const pointer = new THREE.Vector2();
-  const toNdc = e => ({ x: (e.clientX / window.innerWidth) * 2 - 1, y: -(e.clientY / window.innerHeight) * 2 + 1 });
-  const onHud = e => e.target instanceof Element && !!e.target.closest('button, a, #m-card, #m-talk, #m-stick, #links, #chrome, #plain, #gate');
+  const toNdc = e => {
+    const r = canvas.getBoundingClientRect();
+    return { x: ((e.clientX - r.left) / r.width) * 2 - 1, y: -((e.clientY - r.top) / r.height) * 2 + 1 };
+  };
+  const onHud = e => e.target instanceof Element && !!e.target.closest('button, a, #m-card, #m-talk, #m-stick, #m-places, #links, #chrome, #plain, #gate');
   let bookDrag = false;
 
   window.addEventListener('pointermove', e => {
@@ -210,6 +223,7 @@ async function boot(content, hooks) {
       return;
     }
     mind.pointerDown(e);
+    try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
   });
   const endPointer = e => {
     if (!running) return;
@@ -218,7 +232,14 @@ async function boot(content, hooks) {
     mind.pointerUp(e, p.x, p.y);
   };
   window.addEventListener('pointerup', endPointer);
-  window.addEventListener('pointercancel', endPointer);
+  // a cancelled touch is never a tap
+  window.addEventListener('pointercancel', e => {
+    if (bookDrag) { bookDrag = false; notebook.dragEnd(); }
+    mind.pointerCancel(e);
+  });
+  // stop pinch zoom and double tap zoom while exploring (iOS ignores the viewport setting)
+  document.addEventListener('gesturestart', e => { if (running) e.preventDefault(); });
+  document.addEventListener('dblclick', e => { if (running) e.preventDefault(); }, { passive: false });
   window.addEventListener('wheel', e => { if (running && !bookOpen && !onHud(e)) mind.wheel(e); }, { passive: true });
 
   window.addEventListener('keydown', e => {
@@ -290,6 +311,7 @@ async function boot(content, hooks) {
   let firstTime = true;
 
   function open() {
+    window.scrollTo(0, 0);
     $('stage').hidden = false;
     document.body.classList.add('in-mind');
     voice.unlock().then(() => {

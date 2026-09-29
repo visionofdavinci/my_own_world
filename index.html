@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ioana-Teodora Gomoi, AI researcher and digital artist</title>
-<meta name="description" content="Ioana-Teodora Gomoi. AI researcher and digital artist, MSc Artificial Intelligence at the University of Amsterdam. Read the CV or explore a 3D landscape of her work.">
+<meta name="description" content="Ioana-Teodora Gomoi (Vis). AI researcher and digital artist, MSc Artificial Intelligence at the University of Amsterdam. Read the CV or explore a 3D landscape of her work.">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="Ioana-Teodora Gomoi">
 <meta property="og:description" content="AI research, robotics, generative art and creative coding.">
@@ -21,13 +21,15 @@
   button{font-family:inherit}
   :focus-visible{outline:2px solid var(--acid);outline-offset:2px}
   [hidden]{display:none !important}
-  #stage{position:absolute;inset:0;touch-action:none}
+  #stage{position:fixed;inset:0;width:100%;height:100%;height:100dvh;touch-action:none}
   #gl{display:block;width:100%;height:100%}
 
   /* ---------------- the two doors ---------------- */
-  #gate{position:absolute;inset:0;z-index:30;background:var(--void);display:flex;flex-direction:column;
+  #gate{position:fixed;inset:0;z-index:30;background:var(--void);display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:2.2rem;padding:2rem 1.2rem;transition:opacity .6s ease;overflow:auto}
-  #gate.gone{opacity:0;pointer-events:none}
+  /* once gone, nothing inside it may catch a tap: visibility hides the doors too */
+  #gate.gone{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
+  #gate.gone *{pointer-events:none !important}
   #gate h1{margin:0;font-weight:400;font-size:clamp(1.3rem,3.6vw,2.1rem);letter-spacing:.12em;color:var(--linen);text-align:center}
   #gate .sub{margin:-1.4rem 0 0;font-size:.8rem;letter-spacing:.14em;color:var(--cream);text-align:center}
   .doors{display:grid;grid-template-columns:repeat(2,minmax(0,20rem));gap:1.2rem;opacity:.35;pointer-events:none;transition:opacity .4s}
@@ -44,11 +46,11 @@
   #gate-status{margin:0;font-size:.72rem;color:var(--cream);min-height:1em}
   @media (max-width:640px){ .doors{grid-template-columns:1fr;width:100%;max-width:22rem} }
 
-  #loading{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:25;margin:0;
+  #loading{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:25;margin:0;
     font-size:.7rem;letter-spacing:.24em;color:var(--acid);opacity:.7}
 
   /* ---------------- the CV ---------------- */
-  #plain{display:none;position:absolute;inset:0;z-index:20;overflow-y:auto;background:var(--void);color:var(--text);
+  #plain{display:none;position:fixed;inset:0;z-index:20;overflow-y:auto;background:var(--void);color:var(--text);
     padding:0 1.3rem 5rem;outline:none}
   body.plain{overflow:auto}
   body.plain #plain{display:block}
@@ -82,7 +84,7 @@
   .cv-foot{max-width:44rem;margin:3rem auto 0}
 
   /* ---------------- chrome ---------------- */
-  #chrome{position:absolute;left:0;right:0;bottom:0;z-index:12;display:none;justify-content:space-between;align-items:flex-end;
+  #chrome{position:fixed;left:0;right:0;bottom:0;z-index:12;display:none;justify-content:space-between;align-items:flex-end;
     padding:.9rem 1.1rem calc(.9rem + env(safe-area-inset-bottom));pointer-events:none;font-size:.6rem;letter-spacing:.18em}
   body.in-mind #chrome{display:flex}
   #chrome button{pointer-events:auto;color:var(--cream);background:none;border:0;padding:.35rem .5rem;font:inherit;letter-spacing:inherit;opacity:.6;cursor:pointer}
@@ -90,7 +92,7 @@
   #sig{opacity:.35;color:var(--cream)}
 
   /* the links under the contact book */
-  #links{position:absolute;left:50%;bottom:calc(.5rem + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:16;
+  #links{position:fixed;left:50%;bottom:calc(.5rem + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:16;
     display:flex;gap:.6rem;opacity:0;pointer-events:none;transition:opacity .4s}
   #links.on{opacity:1;pointer-events:auto}
   #links a{font:.7rem var(--mono);letter-spacing:.12em;color:var(--acid);text-decoration:none;padding:.5rem .8rem;
@@ -98,8 +100,14 @@
   #links a:hover,#links a:focus-visible{background:var(--acid);color:var(--void);outline:none}
 
   /* ---------------- the inside of the mind ---------------- */
-  #mind{position:absolute;inset:0;z-index:14;pointer-events:none;opacity:0;transition:opacity .6s ease;color:var(--linen)}
+  #mind{position:fixed;inset:0;height:100%;height:100dvh;z-index:14;pointer-events:none;opacity:0;transition:opacity .6s ease;color:var(--linen)}
   #mind.on{opacity:1}
+  /* in the mind the page must not zoom, select, bounce or scroll under the finger */
+  body.in-mind{overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+    -webkit-tap-highlight-color:transparent}
+  #mind button,#links a,#chrome button{touch-action:manipulation}
+  #mind.on #m-places{pointer-events:auto;touch-action:pan-x pan-y}
+  #mind.on #m-talk,#mind.on #m-card{touch-action:pan-y}
   #mind.on button,#mind.on #m-card,#mind.on #m-stick,#mind.on #m-talk{pointer-events:auto}
   #mind.reading .m-top,#mind.reading #m-places,#mind.reading #m-card,#mind.reading #m-talk,
   #mind.reading #m-prompt,#mind.reading #m-stick{opacity:0;pointer-events:none !important}
@@ -121,6 +129,7 @@
   #m-prompt{position:absolute;left:50%;bottom:calc(3.4rem + env(safe-area-inset-bottom));transform:translate(-50%,6px);
     font-size:.74rem;letter-spacing:.1em;color:var(--void);background:var(--acid);border:0;padding:.6rem 1rem;cursor:pointer;
     opacity:0;pointer-events:none !important;transition:opacity .25s,transform .25s}
+  #m-prompt{z-index:3}
   #mind.talking #m-prompt{opacity:0;pointer-events:none !important}
   #m-prompt.on{opacity:1;transform:translate(-50%,0);pointer-events:auto !important}
   #m-card{position:absolute;right:1.1rem;bottom:calc(3rem + env(safe-area-inset-bottom));width:min(24rem,92vw);max-height:56vh;overflow:auto;
@@ -151,7 +160,16 @@
     border:2px dashed rgba(239,230,210,.5);background:rgba(7,6,12,.45);display:none;touch-action:none;transition:opacity .3s}
   #m-stick span{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;
     background:rgba(200,16,46,.85);border:2px solid var(--linen)}
-  @media (hover:none) and (pointer:coarse){ #m-stick{display:block} #m-talk .n{display:none} }
+  @media (hover:none) and (pointer:coarse){
+    #m-stick{display:block}
+    #m-talk .n{display:none}
+    #m-places button{min-height:40px;font-size:.7rem}
+    #m-talk .opts button{min-height:44px;font-size:.8rem}
+    #m-cv{padding:.75rem 1rem}
+    #m-prompt{font-size:.82rem;padding:.85rem 1.2rem}
+    #chrome button{padding:.7rem .8rem}
+    #links a{padding:.75rem 1rem}
+  }
 
   @media (min-width:1100px){
     #m-talk{left:auto;right:1.1rem;transform:translateY(8px);width:min(34rem,40vw);bottom:calc(3rem + env(safe-area-inset-bottom))}
@@ -168,7 +186,8 @@
     #m-talk{top:calc(7rem + env(safe-area-inset-top));bottom:auto;max-height:46vh;overflow:auto}
     #m-card{left:.8rem;right:.8rem;width:auto;bottom:calc(10.2rem + env(safe-area-inset-bottom));max-height:30vh;padding:.9rem 1rem}
     #m-card .b p{font-size:.72rem;line-height:1.65}
-    #m-prompt{bottom:calc(10.6rem + env(safe-area-inset-bottom))}
+    #m-prompt{left:auto;right:.8rem;bottom:calc(3.6rem + env(safe-area-inset-bottom));transform:translateY(6px);max-width:calc(100vw - 10rem)}
+    #m-prompt.on{transform:none}
     #m-talk.on ~ #m-card{opacity:0;pointer-events:none}
   }
   @media (prefers-reduced-motion: reduce){ #m-card,#m-talk,#gate{transition:opacity .2s} }

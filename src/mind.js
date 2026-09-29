@@ -1088,6 +1088,7 @@ export class Mind {
   clearKeys() { this.keys.clear(); }
 
   pointerDown(e) {
+    if (this.drag && this.drag.id !== e.pointerId) return;   // one look drag at a time
     this.drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, id: e.pointerId, moved: 0, touch: e.pointerType === 'touch' };
   }
   pointerMove(e) {
@@ -1100,12 +1101,19 @@ export class Mind {
     // grab the world: dragging right swings the view left, like pulling it round
     this.yawT += dx * s;
     this.pitchT = clamp(this.pitchT + dy * s * 0.8, -0.9, 0.9);
-    if (d.moved > 6) this.travel = null;
+    if (d.moved > (d.touch ? 16 : 6)) this.travel = null;
+  }
+  // Only the finger that started a drag can end it, so lifting the thumb
+  // off the pad does not stop the other finger from looking around.
+  pointerCancel(e) {
+    if (this.drag && this.drag.id === e.pointerId) this.drag = null;
   }
   pointerUp(e, nx, ny) {
     const d = this.drag;
+    if (!d || d.id !== e.pointerId) return;
     this.drag = null;
-    if (!d || d.moved > 8 || this.locked) return;
+    const slop = d.touch ? 16 : 8;           // fingers move a little even when tapping
+    if (d.moved > slop || this.locked) return;
     this.raycaster.setFromCamera({ x: nx, y: ny }, this.camera);
     const hits = this.raycaster.intersectObjects(this.hits, false).filter(h => h.distance < 140);
     if (!hits.length) return;
