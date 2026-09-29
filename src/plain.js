@@ -46,6 +46,12 @@ export function renderPlain(content, { onMind } = {}) {
       if (p.meta) html += `<p class="cv-meta">${esc(p.meta)}</p>`;
       for (const b of (p.body || [])) html += `<p>${esc(b)}</p>`;
       if (p.tags?.length) html += `<p class="cv-tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join('')}</p>`;
+      if (key !== 'contact') {
+        for (const l of (p.links || []).filter(l => l.url)) {
+          const ext = l.url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+          html += `<p class="cv-link"><a href="${esc(l.url)}"${ext}>${esc(l.label)}</a></p>`;
+        }
+      }
       html += `</article>`;
     }
     html += `</section>`;
