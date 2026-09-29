@@ -267,6 +267,12 @@ async function boot(content, hooks) {
   hud.prompt.addEventListener('click', e => { e.stopPropagation(); mind.interact(); });
 
   // the pad on touch screens
+  // Show the pad on anything with a touchscreen. The CSS media query alone
+  // misses many phones (some Android browsers, iOS desktop mode), so this
+  // checks the hardware, and switches on at the first touch as a fallback.
+  const markTouch = () => { document.body.classList.add('touch'); mind.refreshPrompt(); };
+  if (navigator.maxTouchPoints > 0 || 'ontouchstart' in window || matchMedia('(any-pointer: coarse)').matches) markTouch();
+  window.addEventListener('pointerdown', e => { if (e.pointerType === 'touch' && !document.body.classList.contains('touch')) markTouch(); }, true);
   const stickEl = $('m-stick'), knob = stickEl.querySelector('span');
   let stickId = null;
   const stickMove = e => {

@@ -160,6 +160,9 @@
     border:2px dashed rgba(239,230,210,.5);background:rgba(7,6,12,.45);display:none;touch-action:none;transition:opacity .3s}
   #m-stick span{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;
     background:rgba(200,16,46,.85);border:2px solid var(--linen)}
+  /* the pad: shown on any touch device (set from JS) and on any phone sized screen */
+  body.touch #m-stick{display:block}
+  @media (max-width:760px){ #m-stick{display:block} }
   @media (hover:none) and (pointer:coarse){
     #m-stick{display:block}
     #m-talk .n{display:none}

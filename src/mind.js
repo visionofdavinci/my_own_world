@@ -1252,10 +1252,12 @@ export class Mind {
     if (same) return;
     const el = this.hud.prompt;
     if (!t) { el.classList.remove('on'); return; }
-    const how = window.matchMedia('(hover: none)').matches ? 'Tap here' : 'Press E';
+    const how = document.body.classList.contains('touch') ? 'Tap here' : 'Press E';
     el.textContent = t.kind === 'guide' ? `${how} to talk to ${t.name}` : `${how} to read ${t.name.toLowerCase()}`;
     el.classList.add('on');
   }
+  // redraw the prompt text, e.g. after a touchscreen is detected
+  refreshPrompt() { const t = this.target; this.target = null; this.setTarget(t); }
 
   interact() {
     if (this.target) this.onInteract?.(this.target.kind, this.target.key);
