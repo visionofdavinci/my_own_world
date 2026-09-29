@@ -14,6 +14,9 @@
     "research",
     "creative computing",
     "robotics"
+   ],
+   "links": [
+    { "label": "Visit the lab website", "url": "https://analogue-intelligence.github.io/analogue_intelligence_website/" }
    ]
   },
   {
