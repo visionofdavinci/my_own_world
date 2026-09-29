@@ -1,0 +1,107 @@
+{
+ "title": "Experience",
+ "subtitle": "Work, teaching and events",
+ "pages": [
+  {
+   "eyebrow": "Since July 2026",
+   "title": "AI Researcher",
+   "meta": "Analogue Intelligence Research Lab, VU Amsterdam",
+   "body": [
+    "I started this research group with Prof. Mauricio Verano Merino. It works on software engineering, creative computing, AI, hardware and robotics.",
+    "I also built the lab website, a 3D building with six rooms, custom shaders, characters and an achievement system."
+   ],
+   "tags": [
+    "research",
+    "creative computing",
+    "robotics"
+   ]
+  },
+  {
+   "eyebrow": "2024 to 2026",
+   "title": "Teaching Assistant",
+   "meta": "Head TA for Introduction to Python Programming and Applied Programming for AI",
+   "body": [
+    "I led labs and tutorials for Intro to AI, Introduction to Python, Intelligent Systems, Project Intelligent Systems, Applied Programming, Knowledge and Data, Logic and Sets, and Computational Intelligence.",
+    "I prepared technical and theory materials, graded assignments and projects, and helped students with Python, machine learning, evolutionary algorithms, knowledge representation and algorithmic thinking."
+   ],
+   "tags": [
+    "Python",
+    "machine learning",
+    "evolutionary algorithms"
+   ]
+  },
+  {
+   "eyebrow": "Organiser, 2026",
+   "title": "Processing Community Day Amsterdam",
+   "meta": "A community event for creative coding and computational art",
+   "body": [
+    "I co-organised the Amsterdam edition together with two other organisers and gave a p5.js workshop for beginners."
+   ],
+   "tags": [
+    "p5.js",
+    "Apps Script",
+    "poster design"
+   ]
+  },
+  {
+   "eyebrow": "Hackathon: AISO and Prosus, 2026",
+   "title": "Agentic AI Hackathon",
+   "meta": "A restaurant management simulation",
+   "body": [
+    "We built a system of several AI agents that set prices, staffing and inventory for a simulated restaurant during changes in demand.",
+    "The agents run in a loop based on OODA (Strategist, Demand, Coordinator, Supply, Operations, Critic and Reflector) with a reflection step. The score went from negative to over 2,500."
+   ],
+   "tags": [
+    "AI agents",
+    "LLMs"
+   ]
+  },
+  {
+   "eyebrow": "Hackathon: AIHouse.nl, 2025",
+   "title": "AI University Games",
+   "meta": "Agentic AI hackathon",
+   "body": [
+    "An AI agent that plans movie nights for a group of friends. A random forest matches personalities and preferences from Letterboxd data, and a website suggests screenings that fit everyone’s schedule."
+   ],
+   "tags": [
+    "AI agents",
+    "web app"
+   ]
+  },
+  {
+   "eyebrow": "Hackathon: IEEE SMC, 2024",
+   "title": "BR41N.IO",
+   "meta": "Brain computer interface hackathon",
+   "body": [
+    "We used AI data analysis to translate brain signals into actions in a memory game built in Unity."
+   ],
+   "tags": [
+    "BCI",
+    "Unity"
+   ]
+  },
+  {
+   "eyebrow": "Workshop: LI-MA, 2026",
+   "title": "Digital art preservation",
+   "meta": "Transformation Digital Art workshop",
+   "body": [
+    "Attended a workshop about preserving software based and net artworks, with practical tools for conservation and documentation."
+   ],
+   "tags": [
+    "digital art",
+    "conservation"
+   ]
+  },
+  {
+   "eyebrow": "Skills",
+   "title": "What I build with",
+   "meta": "",
+   "body": [
+    "Python, C++, Java, JavaScript, Prolog, SQL, SPARQL, HTML and CSS, p5.js.",
+    "PyTorch, TensorFlow, Keras, scikit learn, XGBoost, Stable Baselines3, Gymnasium, MuJoCo, PyBullet, spaCy, NLTK, Hugging Face Transformers, Sentence Transformers, pandas and NumPy.",
+    "Git, TouchDesigner and Microsoft Office."
+   ],
+   "tags": []
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "title": "Contact",
+ "subtitle": "Contact",
+ "pages": [
+  {
+   "eyebrow": "Contact",
+   "title": "Get in touch",
+   "meta": "The links are also below this book",
+   "body": [
+    "Email gomoiioana@gmail.com",
+    "GitHub visionofdavinci",
+    "LinkedIn Ioana-Teodora Gomoi",
+    "I live in Amsterdam and I am open to research roles, internships and collaborations in robotics, embodied AI and creative machine learning."
+   ],
+   "tags": [],
+   "links": [
+    {
+     "label": "email",
+     "url": "mailto:gomoiioana@gmail.com"
+    },
+    {
+     "label": "github",
+     "url": "https://github.com/visionofdavinci"
+    },
+    {
+     "label": "linkedin",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "eyebrow": "Looking for",
+   "title": "What is next",
+   "meta": "",
+   "body": [
+    "I am looking for research roles and internships in robotics, embodied AI and creative machine learning, ideally where a thesis and a job can be combined.",
+    "If you work on control, generative systems or anything that runs in real time, I would like to hear from you."
+   ],
+   "tags": []
+  }
+ ]
+}

@@ -1,0 +1,147 @@
+{
+ "title": "Projects",
+ "subtitle": "Research projects and software",
+ "pages": [
+  {
+   "eyebrow": "Robotics / RL",
+   "title": "ZEPHYR",
+   "meta": "BSc thesis, graded 9.5 out of 10. Being extended into a paper for ICRA 2027",
+   "body": [
+    "A navigation framework for drones with three modes. Gaussian and inverse power potential fields handle open flight, a policy trained with PPO handles escaping from traps, and an arbiter decides which mode is active.",
+    "The main finding was about the arbiter. Replacing a reactive Schmitt trigger with a predictive selector raised the success rate from 0.514 to 0.963, with the same controllers underneath.",
+    "I also compared it with DWA on safety. The field planner kept a safe distance from obstacles in 98.4% of steps, and DWA in 34.7%."
+   ],
+   "tags": [
+    "PyTorch",
+    "PPO",
+    "potential fields",
+    "Snellius HPC"
+   ]
+  },
+  {
+   "eyebrow": "Generative art",
+   "title": "DAEDALUS",
+   "meta": "Poem to image system.",
+   "body": [
+    "A pipeline that turns a poem into an SVG drawing. Word embeddings are passed through compositional pattern producing networks (CPPNs) evolved with NEAT, so the meaning of the text decides the structure of the image.",
+    "It does not use any existing artworks or image datasets, which avoids questions about provenance and consent.",
+    "On longer texts the graph layout still produces tangled edges. This limitation is documented in the paper."
+   ],
+   "tags": [
+    "NEAT",
+    "CPPN",
+    "embeddings",
+    "SVG"
+   ]
+  },
+  {
+   "eyebrow": "Sports analytics",
+   "title": "ATLAS",
+   "meta": "Pass ranking with geometry. Manuscript prepared for npj Artificial Intelligence, AI in Sports",
+   "body": [
+    "A pass ranking framework that uses four geometric penalties (triangle, vector, radius and direction) and no learned model.",
+    "I evaluated it on StatsBomb event data from Euro 2020 and Euro 2024 with H@3 and P@3, a sensitivity analysis and z tests for two proportions.",
+    "The direction penalty contributed the most to the result."
+   ],
+   "tags": [
+    "StatsBomb",
+    "geometry",
+    "statistics"
+   ]
+  },
+  {
+   "eyebrow": "Evolutionary robotics",
+   "title": "Damage recovery using Transformers",
+   "meta": "Supervised research, 2024 to 2025",
+   "body": [
+    "A locomotion controller with a transformer inside, built in MuJoCo Gymnasium and optimised with evolutionary algorithms. It learns to keep walking after part of its body is damaged.",
+    "With damage it reached higher average returns than without damage, and attention made it tolerant to faults without retraining."
+   ],
+   "tags": [
+    "MuJoCo",
+    "transformers",
+    "evolution"
+   ]
+  },
+  {
+   "eyebrow": "Language and knowledge",
+   "title": "GraphRAG",
+   "meta": "Python, Llama 3.2, OWL, OWLAPY, Manchester syntax",
+   "body": [
+    "A system that translates travel questions in natural language into formal ontology queries, using Llama 3.2 prompted with a few examples.",
+    "When a query has no results, a reasoner removes constraints one at a time with a recursive algorithm based on regular expressions. It retrieved the right hotels in 95% of queries with three to five constraints."
+   ],
+   "tags": [
+    "LLMs",
+    "OWL",
+    "reasoning"
+   ]
+  },
+  {
+   "eyebrow": "Robotic navigation",
+   "title": "Curriculum learning",
+   "meta": "Python, TQC, HER, Gymnasium",
+   "body": [
+    "An adaptive curriculum for a Point Maze environment with three difficulty levels, trained with TQC, hindsight experience replay and reward shaping that decreases over time.",
+    "Statistical tests over several seeds showed that the curricula performed the same."
+   ],
+   "tags": [
+    "TQC",
+    "HER",
+    "Gymnasium"
+   ]
+  },
+  {
+   "eyebrow": "Optimisation",
+   "title": "Strategic Noisy SGD",
+   "meta": "PyTorch, LSTM. London temperatures from 1979 to 2023",
+   "body": [
+    "A version of stochastic gradient descent that adds noise which keeps the sign of the gradient and decreases over time. I tested it on a two layer LSTM that forecasts daily temperature.",
+    "The study includes comparisons with baselines, Bayesian hyperparameter optimisation, and an analysis of errors and residuals."
+   ],
+   "tags": [
+    "PyTorch",
+    "LSTM",
+    "forecasting"
+   ]
+  },
+  {
+   "eyebrow": "Creative computing",
+   "title": "Analogue Intelligence website",
+   "meta": "The website of the research lab",
+   "body": [
+    "A 3D building in Three.js that you can walk through, with six rooms, custom shaders, characters and achievements. It has no build step and uses plain ES modules."
+   ],
+   "tags": [
+    "Three.js",
+    "GLSL",
+    "ES modules"
+   ]
+  },
+  {
+   "eyebrow": "Creative computing",
+   "title": "My Own World",
+   "meta": "The site you are using now",
+   "body": [
+    "A portrait made from two planes with depth maps, rendered at low resolution. Her voice is generated in the browser and her mouth moves with it.",
+    "You can read my CV as a plain page or explore the inside of my mind, a 3D landscape with books about my work."
+   ],
+   "tags": [
+    "WebGL",
+    "Web Audio",
+    "shaders"
+   ]
+  },
+  {
+   "eyebrow": "Method",
+   "title": "How I work",
+   "meta": "",
+   "body": [
+    "I run ablations before I decide what a result means. Several of my results changed after I tested the parts one at a time.",
+    "I report the metrics that show weaknesses as well as strengths. For example, a success rate of 0.999 is not enough if the system is unsafe in most steps.",
+    "I write the limitations early, because they often point to the next project."
+   ],
+   "tags": []
+  }
+ ]
+}

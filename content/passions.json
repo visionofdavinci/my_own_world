@@ -1,0 +1,43 @@
+{
+ "title": "Passions",
+ "subtitle": "Art, music and where I come from",
+ "pages": [
+  {
+   "eyebrow": "Who I am",
+   "title": "Ioana-Teodora Gomoi",
+   "meta": "Vis. Amsterdam, originally from Bucharest",
+   "body": [
+    "I am an AI researcher and a digital artist. I started with art and moved into machine learning because I wanted to build things that move, sound and look good.",
+    "I like problems where the maths has to work on something physical, such as a drone, a projector or a group of people."
+   ],
+   "tags": []
+  },
+  {
+   "eyebrow": "Art",
+   "title": "Painting and drawing",
+   "meta": "Analogue digital artist",
+   "body": [
+    "I paint, draw digitally and sketch, as well as work with interactive visual tools and photography. I have competed in digital art, and drawing is still the way I work out ideas before I write code.",
+    "I also make interactive visual work with TouchDesigner, p5.js, Three.js and shaders.",
+    "This is why I care about how figures and interfaces look in my research."
+   ],
+   "tags": [
+    "painting",
+    "digital drawing",
+    "sketching",
+    "TouchDesigner",
+    "p5.js"
+   ]
+  },
+  {
+   "eyebrow": "Also",
+   "title": "Music",
+   "meta": "",
+   "body": [
+    "Music is important to me. I think about rhythm and melody in a similar way to loops and patterns in code.",
+    "The inside of my mind has a place that plays music when you walk close to it."
+   ],
+   "tags": []
+  }
+ ]
+}

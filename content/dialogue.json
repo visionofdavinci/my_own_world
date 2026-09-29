@@ -1,0 +1,135 @@
+{
+ "start": "root",
+ "nodes": {
+  "root": {
+   "line": "Hi, I'm Vis. This is the inside of my mind. Five books are hidden here, about my projects, education, experience, passions and contact details.",
+   "options": [
+    {
+     "label": "How do I move around?",
+     "next": "move"
+    },
+    {
+     "label": "Where are the books?",
+     "next": "books"
+    },
+    {
+     "label": "What are the other places?",
+     "next": "places"
+    },
+    {
+     "label": "I'll start exploring.",
+     "next": "bye",
+     "action": "close"
+    }
+   ]
+  },
+  "again": {
+   "line": "Hi again. Can I help with something?",
+   "options": [
+    {
+     "label": "How do I move around?",
+     "next": "move"
+    },
+    {
+     "label": "Where are the books?",
+     "next": "books"
+    },
+    {
+     "label": "What are the other places?",
+     "next": "places"
+    },
+    {
+     "label": "No, thank you.",
+     "next": "bye",
+     "action": "close"
+    }
+   ]
+  },
+  "move": {
+   "line": "Drag to look around and use WASD or the arrow keys to walk. On a phone, use the pad in the corner. Walk up to a book and press E, or tap it, to read it.",
+   "options": [
+    {
+     "label": "Where are the books?",
+     "next": "books"
+    },
+    {
+     "label": "What are the other places?",
+     "next": "places"
+    },
+    {
+     "label": "I'll start exploring.",
+     "next": "bye",
+     "action": "close"
+    }
+   ]
+  },
+  "books": {
+   "line": "Projects is in the code garden, education is at the flight field, experience is by the loom, passions is in the colour field, and contact is next to the tree. The list on the left walks you to each one.",
+   "options": [
+    {
+     "label": "How do I move around?",
+     "next": "move"
+    },
+    {
+     "label": "What are the other places?",
+     "next": "places"
+    },
+    {
+     "label": "I'll start exploring.",
+     "next": "bye",
+     "action": "close"
+    }
+   ]
+  },
+  "places": {
+   "line": "The tree of life, the code garden, the listening ring, the colour field, the flight field and the loom. Each one shows something I care about, and shows a short text when you walk close.",
+   "options": [
+    {
+     "label": "Where are the books?",
+     "next": "books"
+    },
+    {
+     "label": "Tell me about the listening ring.",
+     "next": "ring"
+    },
+    {
+     "label": "I'll start exploring.",
+     "next": "bye",
+     "action": "close"
+    }
+   ]
+  },
+  "ring": {
+   "line": "It is on the right of the tree. It plays music that gets louder as you walk closer, and you can play notes by walking between the pillars.",
+   "options": [
+    {
+     "label": "Where are the books?",
+     "next": "books"
+    },
+    {
+     "label": "I'll start exploring.",
+     "next": "bye",
+     "action": "close"
+    }
+   ]
+  },
+  "bye": {
+   "line": "Enjoy exploring. Come back to me if you need help.",
+   "options": []
+  },
+  "allfound": {
+   "line": "You found all five books. Thank you for exploring my mind. You can also read my CV as a plain page with the button at the top.",
+   "options": [
+    {
+     "label": "How do I move around?",
+     "next": "move"
+    },
+    {
+     "label": "No, thank you.",
+     "next": "bye",
+     "action": "close"
+    }
+   ]
+  }
+ }
+}

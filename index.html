@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ioana-Teodora Gomoi, AI researcher and digital artist</title>
+<meta name="description" content="Ioana-Teodora Gomoi. AI researcher and digital artist, MSc Artificial Intelligence at the University of Amsterdam. Read the CV or explore a 3D landscape of her work.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Ioana-Teodora Gomoi">
+<meta property="og:description" content="AI research, robotics, generative art and creative coding.">
+<meta property="og:image" content="assets/character/base.png">
+<style>
+  :root{
+    --void:#060a04; --acid:#cbf30f; --mag:#eb32bc; --cy:#26d4e1; --cream:#c5b677;
+    --linen:#efe6d2; --red:#c8102e; --text:#d8cfb8;
+    --mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--void);color:var(--acid);font-family:var(--mono);overflow:hidden}
+  button{font-family:inherit}
+  :focus-visible{outline:2px solid var(--acid);outline-offset:2px}
+  [hidden]{display:none !important}
+  #stage{position:absolute;inset:0;touch-action:none}
+  #gl{display:block;width:100%;height:100%}
+
+  /* ---------------- the two doors ---------------- */
+  #gate{position:absolute;inset:0;z-index:30;background:var(--void);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:2.2rem;padding:2rem 1.2rem;transition:opacity .6s ease;overflow:auto}
+  #gate.gone{opacity:0;pointer-events:none}
+  #gate h1{margin:0;font-weight:400;font-size:clamp(1.3rem,3.6vw,2.1rem);letter-spacing:.12em;color:var(--linen);text-align:center}
+  #gate .sub{margin:-1.4rem 0 0;font-size:.8rem;letter-spacing:.14em;color:var(--cream);text-align:center}
+  .doors{display:grid;grid-template-columns:repeat(2,minmax(0,20rem));gap:1.2rem;opacity:.35;pointer-events:none;transition:opacity .4s}
+  #gate.ready .doors{opacity:1;pointer-events:auto}
+  .door{display:flex;flex-direction:column;gap:.7rem;text-align:left;padding:1.4rem 1.4rem 1.5rem;cursor:pointer;
+    background:rgba(6,10,4,.9);color:var(--text);border:1px solid rgba(197,182,119,.45);transition:background .2s,color .2s}
+  .door .t{font-size:1.05rem;letter-spacing:.08em;color:var(--linen)}
+  .door .d{font-size:.74rem;line-height:1.7}
+  .door:hover,.door:focus-visible{background:var(--cream);color:var(--void);outline:none}
+  .door:hover .t,.door:focus-visible .t{color:var(--void)}
+  .door.mind{border:2px dashed var(--mag)}
+  .door.mind .t{color:var(--acid)}
+  .door.mind:hover,.door.mind:focus-visible{background:var(--mag);color:var(--void)}
+  #gate-status{margin:0;font-size:.72rem;color:var(--cream);min-height:1em}
+  @media (max-width:640px){ .doors{grid-template-columns:1fr;width:100%;max-width:22rem} }
+
+  #loading{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:25;margin:0;
+    font-size:.7rem;letter-spacing:.24em;color:var(--acid);opacity:.7}
+
+  /* ---------------- the CV ---------------- */
+  #plain{display:none;position:absolute;inset:0;z-index:20;overflow-y:auto;background:var(--void);color:var(--text);
+    padding:0 1.3rem 5rem;outline:none}
+  body.plain{overflow:auto}
+  body.plain #plain{display:block}
+  body.plain #stage,body.plain #mind,body.plain #chrome,body.plain #links{display:none}
+  .cv-note{max-width:44rem;margin:1.2rem auto 0;font-size:.78rem;color:var(--mag)}
+  .cv-head{max-width:44rem;margin:0 auto;padding:3.4rem 0 1.4rem}
+  .cv-head h1{margin:0;font-weight:400;font-size:clamp(1.35rem,4vw,1.9rem);letter-spacing:.08em;color:var(--linen)}
+  .cv-lede{margin:.8rem 0 1rem;font-size:.88rem;line-height:1.7;color:var(--text)}
+  .cv-links{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:0 0 1.4rem;font-size:.82rem}
+  .cv-links a,#plain p a{color:var(--acid)}
+  .cv-mind{font-size:.76rem;letter-spacing:.14em;color:var(--acid);background:transparent;border:2px dashed var(--mag);
+    padding:.6rem 1rem;cursor:pointer}
+  .cv-mind:hover,.cv-mind:focus-visible{background:var(--mag);color:var(--void);outline:none}
+  .cv-nav{position:sticky;top:0;z-index:2;max-width:44rem;margin:0 auto;display:flex;gap:.3rem;overflow-x:auto;
+    padding:.7rem 0;background:var(--void);border-bottom:1px solid rgba(197,182,119,.2);scrollbar-width:none}
+  .cv-nav::-webkit-scrollbar{display:none}
+  .cv-nav a{flex:none;font-size:.74rem;letter-spacing:.1em;color:var(--cream);text-decoration:none;padding:.35rem .6rem;
+    border:1px solid rgba(197,182,119,.3)}
+  .cv-nav a:hover,.cv-nav a:focus-visible{color:var(--void);background:var(--acid);border-color:var(--acid);outline:none}
+  .cv-sec{max-width:44rem;margin:0 auto;padding-top:2.4rem;scroll-margin-top:3.4rem}
+  .cv-sec h2{margin:0 0 .4rem;font-weight:400;font-size:.95rem;letter-spacing:.2em;color:var(--acid);
+    padding-bottom:.6rem;border-bottom:2px dashed rgba(200,16,46,.7)}
+  .cv-item{padding:1.2rem 0 .3rem}
+  .cv-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.2rem 1rem}
+  .cv-item h3{margin:0;font-weight:400;font-size:1rem;letter-spacing:.03em;color:var(--linen)}
+  .cv-when{font-size:.72rem;color:var(--cream)}
+  .cv-meta{margin:.3rem 0 .6rem;font-size:.76rem;line-height:1.6;color:var(--cream)}
+  .cv-item p{margin:0 0 .65rem;font-size:.84rem;line-height:1.75;max-width:66ch}
+  .cv-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+  .cv-tags span{font-size:.66rem;letter-spacing:.06em;color:var(--cream);border:1px solid rgba(197,182,119,.35);padding:.15rem .45rem}
+  .cv-foot{max-width:44rem;margin:3rem auto 0}
+
+  /* ---------------- chrome ---------------- */
+  #chrome{position:absolute;left:0;right:0;bottom:0;z-index:12;display:none;justify-content:space-between;align-items:flex-end;
+    padding:.9rem 1.1rem calc(.9rem + env(safe-area-inset-bottom));pointer-events:none;font-size:.6rem;letter-spacing:.18em}
+  body.in-mind #chrome{display:flex}
+  #chrome button{pointer-events:auto;color:var(--cream);background:none;border:0;padding:.35rem .5rem;font:inherit;letter-spacing:inherit;opacity:.6;cursor:pointer}
+  #chrome button:hover,#chrome button:focus-visible{opacity:1;color:var(--acid)}
+  #sig{opacity:.35;color:var(--cream)}
+
+  /* the links under the contact book */
+  #links{position:absolute;left:50%;bottom:calc(.5rem + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:16;
+    display:flex;gap:.6rem;opacity:0;pointer-events:none;transition:opacity .4s}
+  #links.on{opacity:1;pointer-events:auto}
+  #links a{font:.7rem var(--mono);letter-spacing:.12em;color:var(--acid);text-decoration:none;padding:.5rem .8rem;
+    border:1px solid rgba(203,243,15,.45);background:rgba(6,10,4,.92)}
+  #links a:hover,#links a:focus-visible{background:var(--acid);color:var(--void);outline:none}
+
+  /* ---------------- the inside of the mind ---------------- */
+  #mind{position:absolute;inset:0;z-index:14;pointer-events:none;opacity:0;transition:opacity .6s ease;color:var(--linen)}
+  #mind.on{opacity:1}
+  #mind.on button,#mind.on #m-card,#mind.on #m-stick,#mind.on #m-talk{pointer-events:auto}
+  #mind.reading .m-top,#mind.reading #m-places,#mind.reading #m-card,#mind.reading #m-talk,
+  #mind.reading #m-prompt,#mind.reading #m-stick{opacity:0;pointer-events:none !important}
+  .m-top{position:absolute;left:1.2rem;top:calc(1rem + env(safe-area-inset-top));transition:opacity .3s}
+  .m-top h2{margin:0;font-weight:400;font-size:.82rem;letter-spacing:.22em;color:var(--linen)}
+  .m-top p{margin:.35rem 0 0;font-size:.64rem;letter-spacing:.12em;color:var(--cream)}
+  #m-cv{position:absolute;right:1.1rem;top:calc(.85rem + env(safe-area-inset-top));font-size:.7rem;letter-spacing:.16em;
+    color:var(--linen);background:rgba(7,6,12,.82);border:2px dashed var(--red);padding:.55rem .9rem;cursor:pointer}
+  #m-cv:hover,#m-cv:focus-visible{background:var(--red);outline:none}
+  #m-places{position:absolute;left:1.1rem;top:calc(4.4rem + env(safe-area-inset-top));list-style:none;margin:0;padding:0;
+    display:grid;gap:.22rem;max-height:calc(100vh - 9.5rem);overflow:auto;scrollbar-width:none;transition:opacity .3s}
+  #m-places .grp{font-size:.6rem;letter-spacing:.2em;color:var(--cream);opacity:.7;padding:.5rem .2rem .15rem}
+  #m-places button{display:flex;align-items:center;gap:.6rem;font-size:.66rem;letter-spacing:.08em;color:var(--cream);
+    background:rgba(7,6,12,.66);border:1px solid transparent;padding:.36rem .7rem .36rem .5rem;cursor:pointer;text-align:left;white-space:nowrap}
+  #m-places button:hover,#m-places button:focus-visible{border-color:rgba(239,230,210,.5);color:var(--linen);outline:none}
+  #m-places button[aria-current="true"]{color:var(--acid);border-color:rgba(203,243,15,.5)}
+  #m-places .sw{width:.6rem;height:.6rem;transform:rotate(45deg);border:2px solid var(--c);flex:none}
+  #m-places .seen .sw{background:var(--c)}
+  #m-prompt{position:absolute;left:50%;bottom:calc(3.4rem + env(safe-area-inset-bottom));transform:translate(-50%,6px);
+    font-size:.74rem;letter-spacing:.1em;color:var(--void);background:var(--acid);border:0;padding:.6rem 1rem;cursor:pointer;
+    opacity:0;pointer-events:none !important;transition:opacity .25s,transform .25s}
+  #mind.talking #m-prompt{opacity:0;pointer-events:none !important}
+  #m-prompt.on{opacity:1;transform:translate(-50%,0);pointer-events:auto !important}
+  #m-card{position:absolute;right:1.1rem;bottom:calc(3rem + env(safe-area-inset-bottom));width:min(24rem,92vw);max-height:56vh;overflow:auto;
+    background:rgba(7,6,12,.9);border:2px dashed var(--c,var(--red));padding:1.1rem 1.25rem 1.2rem;
+    opacity:0;transform:translateY(8px);clip-path:inset(0 0 100% 0);transition:opacity .35s,transform .35s,clip-path .45s steps(9,end)}
+  #m-card.on{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+  #m-card .k{margin:0 0 .3rem;font-size:.62rem;letter-spacing:.14em;color:var(--c)}
+  #m-card h3{margin:0 0 .8rem;font-weight:400;font-size:1rem;letter-spacing:.05em;color:var(--linen)}
+  #m-card .b p{margin:0 0 .75rem;font-size:.76rem;line-height:1.75;color:var(--text);max-width:60ch}
+  #m-card .b p:last-child{margin-bottom:0}
+
+  /* the guide talking */
+  #m-talk{position:absolute;left:50%;bottom:calc(6.6rem + env(safe-area-inset-bottom));transform:translate(-50%,8px);
+    width:min(38rem,94vw);background:rgba(6,10,4,.94);border:1px solid rgba(203,243,15,.55);border-left:4px solid var(--acid);
+    padding:.95rem 1.1rem 1rem;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none}
+  #m-talk.on{opacity:1;transform:translate(-50%,0)}
+  #m-talk .who{margin:0 0 .35rem;font-size:.62rem;letter-spacing:.2em;color:var(--acid)}
+  #m-talk .asked{margin:0 0 .4rem;font-size:.7rem;color:var(--cream)}
+  #m-talk .line{margin:0;min-height:3.2em;font-size:.84rem;line-height:1.7;color:var(--cy);cursor:pointer}
+  #m-talk .opts{list-style:none;margin:.7rem 0 0;padding:0;display:grid;gap:.3rem}
+  #m-talk .opts button{display:flex;gap:.6rem;align-items:center;width:100%;text-align:left;font-size:.76rem;color:var(--acid);
+    background:transparent;border:1px solid rgba(203,243,15,.3);padding:.45rem .6rem;cursor:pointer}
+  #m-talk .opts button.seen{color:var(--cream);border-color:rgba(197,182,119,.25)}
+  #m-talk .opts button:hover,#m-talk .opts button:focus-visible{background:var(--acid);color:var(--void);outline:none}
+  #m-talk .n{display:inline-grid;place-items:center;width:1.3rem;height:1.3rem;flex:none;font-size:.66rem;border:1px solid currentColor}
+
+  #m-stick{position:absolute;left:1.2rem;bottom:calc(3rem + env(safe-area-inset-bottom));width:118px;height:118px;border-radius:50%;
+    border:2px dashed rgba(239,230,210,.5);background:rgba(7,6,12,.45);display:none;touch-action:none;transition:opacity .3s}
+  #m-stick span{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;
+    background:rgba(200,16,46,.85);border:2px solid var(--linen)}
+  @media (hover:none) and (pointer:coarse){ #m-stick{display:block} #m-talk .n{display:none} }
+
+  @media (min-width:1100px){
+    #m-talk{left:auto;right:1.1rem;transform:translateY(8px);width:min(34rem,40vw);bottom:calc(3rem + env(safe-area-inset-bottom))}
+    #m-talk.on{transform:none}
+    #m-talk.on ~ #m-card{opacity:0;pointer-events:none}
+  }
+  @media (max-width:760px){
+    .m-top{left:.9rem;right:8rem}
+    .m-top h2{font-size:.72rem;letter-spacing:.16em}
+    #m-places{top:calc(4.2rem + env(safe-area-inset-top));left:0;right:0;display:flex;overflow-x:auto;max-height:none;
+      padding:0 .9rem .3rem;gap:.35rem}
+    #m-places .grp{padding:.36rem .1rem 0}
+    #m-places::-webkit-scrollbar{display:none}
+    #m-talk{top:calc(7rem + env(safe-area-inset-top));bottom:auto;max-height:46vh;overflow:auto}
+    #m-card{left:.8rem;right:.8rem;width:auto;bottom:calc(10.2rem + env(safe-area-inset-bottom));max-height:30vh;padding:.9rem 1rem}
+    #m-card .b p{font-size:.72rem;line-height:1.65}
+    #m-prompt{bottom:calc(10.6rem + env(safe-area-inset-bottom))}
+    #m-talk.on ~ #m-card{opacity:0;pointer-events:none}
+  }
+  @media (prefers-reduced-motion: reduce){ #m-card,#m-talk,#gate{transition:opacity .2s} }
+</style>
+</head>
+<body>
+
+<div id="stage" hidden><canvas id="gl"></canvas></div>
+<p id="loading" hidden>loading</p>
+
+<div id="gate">
+  <h1>Ioana-Teodora Gomoi</h1>
+  <p class="sub">AI researcher and digital artist</p>
+  <div class="doors">
+    <button type="button" class="door" id="go-cv">
+      <span class="t">Read my CV</span>
+      <span class="d">A plain page with my education, experience, projects and contact details.</span>
+    </button>
+    <button type="button" class="door mind" id="go-mind">
+      <span class="t">Enter my mind</span>
+      <span class="d">A 3D landscape to explore, with books about my work hidden in it. Sound on.</span>
+    </button>
+  </div>
+  <p id="gate-status" aria-live="polite"></p>
+</div>
+
+<main id="plain" tabindex="-1" aria-label="CV">
+  <p class="cv-note" id="cv-note" hidden></p>
+  <div id="cv-body"></div>
+</main>
+
+<div id="chrome">
+  <span id="sig">ioana-teodora gomoi</span>
+  <span><button id="mute" type="button" aria-label="Toggle sound">sound on</button></span>
+</div>
+
+<div id="links" aria-label="Contact links"></div>
+
+<section id="mind" aria-hidden="true" aria-label="The inside of my mind">
+  <header class="m-top">
+    <h2>the inside of my mind</h2>
+    <p id="m-count"></p>
+  </header>
+  <button id="m-cv" type="button">read my CV</button>
+  <ol id="m-places" aria-label="Books and places"></ol>
+  <button id="m-prompt" type="button"></button>
+  <div id="m-talk" aria-live="polite" aria-hidden="true">
+    <p class="who">vis</p>
+    <p class="asked" hidden></p>
+    <p class="line"></p>
+    <ol class="opts"></ol>
+  </div>
+  <article id="m-card" aria-live="polite" aria-hidden="true">
+    <p class="k"></p><h3></h3><div class="b"></div>
+  </article>
+  <div id="m-stick" aria-hidden="true"><span></span></div>
+</section>
+
+<noscript>
+  <div style="position:absolute;inset:0;z-index:50;background:#060a04;padding:3rem 1.4rem;color:#d8cfb8;font-family:ui-monospace,monospace;line-height:1.9">
+    <h1 style="font-size:1.2rem;font-weight:400;color:#efe6d2">Ioana-Teodora Gomoi</h1>
+    <p style="max-width:60ch;font-size:.85rem">AI researcher and digital artist. MSc Artificial Intelligence, University of Amsterdam. BSc Artificial Intelligence, VU Amsterdam, GPA 9.0 out of 10. Founder of the Analogue Intelligence research lab with Prof. Mauricio Verano Merino.</p>
+    <p style="font-size:.85rem"><a style="color:#cbf30f" href="mailto:gomoiioana@gmail.com">gomoiioana@gmail.com</a> and <a style="color:#cbf30f" href="https://github.com/visionofdavinci">github.com/visionofdavinci</a></p>
+  </div>
+</noscript>
+
+<script type="importmap">
+{ "imports": { "three": "https://esm.sh/three@0.160.0" } }
+</script>
+<script type="module" src="src/start.js"></script>
+</body>
+</html>

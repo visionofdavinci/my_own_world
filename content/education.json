@@ -1,0 +1,32 @@
+{
+ "title": "Education",
+ "subtitle": "Degrees",
+ "pages": [
+  {
+   "eyebrow": "Since 2026",
+   "title": "MSc Artificial Intelligence",
+   "meta": "University of Amsterdam",
+   "body": [
+    "I am interested in embodied and physically grounded AI, in particular systems that combine a learned policy with parts you can analyse and explain.",
+    "Most of my projects are research projects. You can find them under projects."
+   ],
+   "tags": [
+    "UvA",
+    "MSc AI"
+   ]
+  },
+  {
+   "eyebrow": "2023 to 2026",
+   "title": "BSc Artificial Intelligence",
+   "meta": "Vrije Universiteit Amsterdam. GPA 9.0 out of 10",
+   "body": [
+    "Honours Programme in Computer Science and a minor in Situated AI. Courses included Machine Learning, Robotics, Reinforcement Learning and Conversational AI.",
+    "My thesis on drone navigation, ZEPHYR, was graded 9.5 and supervised by Mauricio Verano Merino and Vincent François-Lavet."
+   ],
+   "tags": [
+    "Honours CS",
+    "Situated AI"
+   ]
+  }
+ ]
+}
