@@ -4,10 +4,10 @@
  "pages": [
   {
    "eyebrow": "Since July 2026",
-   "title": "AI Researcher",
-   "meta": "Analogue Intelligence Research Lab, VU Amsterdam",
+   "title": "Researcher/Contributing Member",
+   "meta": "Analogue Intelligence Lab, VU Amsterdam",
    "body": [
-    "I started this research group with Prof. Mauricio Verano Merino. It works on software engineering, creative computing, AI, hardware and robotics.",
+    "I started this research group with Prof. Mauricio Verano Merino and other motivated students. It works on software engineering, creative computing, AI, hardware and robotics.",
     "I also built the lab website, a 3D building with six rooms, custom shaders, characters and an achievement system."
    ],
    "tags": [
@@ -20,9 +20,9 @@
    ]
   },
   {
-   "eyebrow": "2024 to 2026",
+   "eyebrow": "2024 to Present",
    "title": "Teaching Assistant",
-   "meta": "Head TA for Introduction to Python Programming and Applied Programming for AI",
+   "meta": "Coordinator for Introduction to AI and Intelligent Systems",
    "body": [
     "I led labs and tutorials for Intro to AI, Introduction to Python, Intelligent Systems, Project Intelligent Systems, Applied Programming, Knowledge and Data, Logic and Sets, and Computational Intelligence.",
     "I prepared technical and theory materials, graded assignments and projects, and helped students with Python, machine learning, evolutionary algorithms, knowledge representation and algorithmic thinking."
@@ -38,12 +38,12 @@
    "title": "Processing Community Day Amsterdam",
    "meta": "A community event for creative coding and computational art",
    "body": [
-    "I co-organised the Amsterdam edition together with two other organisers and gave a p5.js workshop for beginners."
+    "I co-organised the Amsterdam edition together with Prof. Mauricio Verano and gave a p5.js workshop for beginners, as well as handled the visual designs of the marketing campaign."
    ],
    "tags": [
     "p5.js",
     "Apps Script",
-    "poster design"
+    "graphic design"
    ]
   },
   {
